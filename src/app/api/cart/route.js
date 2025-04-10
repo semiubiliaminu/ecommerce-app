@@ -4,9 +4,10 @@
   export async function POST(request){
   
     try{
-      
+
       const product = await request.json();
   
+      console.log("Products... ",product)
       //add new product
       const add_product = {
         id: products.length + 1,

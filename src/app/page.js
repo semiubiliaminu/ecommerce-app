@@ -6,7 +6,7 @@ import { useCartStore } from './store/cart'
 
 export default function Home() {
   const [products, setProducts] = useState([])
-  const { cart, addToCart, removeFromCart } = useCartStore()
+  const { cart, addToCart, removeFromCart, decreaseQuantity } = useCartStore()
 
   useEffect(() => {
     fetch('api/products') 
@@ -44,18 +44,36 @@ export default function Home() {
         ) : (
           <div>
             {cart.map(item => (
-              <div key={item.id} className="flex justify-between mb-2">
-                <span>{item.title} x {item.quantity}</span>
-                <div>
+              <div key={item.id} className="flex justify-between mb-2 gap-6">
+                <span>{item.title} x {item.quantity} 
+                
+                </span>
+                
+                <div className="p-4 flex items-center gap-1">
                   <span>${item.price * item.quantity}</span>
-                  <button
-                    className="ml-4 text-red-500"
+                  
+                  <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => addToCart(item)}>
+                +
+                </button>
+
+                <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => decreaseQuantity(item.id)}> 
+                -
+                </button>
+                <button
+                    className="bg-red-500 text-white px-2 py-1 rounded"
                     onClick={() => removeFromCart(item.id)}
                   >
-                    Remove
+                    Delete
+
                   </button>
+        
                 </div>
+
+              
               </div>
+              
+              
+
             ))}
             <div className="mt-4 font-bold">Total: ${total.toFixed(2)}</div>
             <button className="mt-2 px-4 py-2 bg-green-600 text-white rounded">
