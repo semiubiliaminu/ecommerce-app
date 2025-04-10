@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from 'react'
 import { useCartStore } from './store/cart'
-import ProductCard from '../components/ProductCard'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -23,7 +22,6 @@ export default function Home() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Product List</h1>
-      
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {products.map(product => (
           <div key={product.id} className="border p-4 rounded shadow">
@@ -39,9 +37,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-
-    
-
       <div className="mt-10 border-t pt-6">
         <h2 className="text-2xl font-semibold mb-4">Cart</h2>
         {cart.length === 0 ? (

@@ -1,21 +1,34 @@
-// src/app/api/cart/route.js
-
-export async function POST(request) {
-
-    try {
-      const body = await request.json();
+  import { products } from "../products/route";
   
-      //log the raw request sent
-      console.log('Cart item received:', body);
+
+  export async function POST(request){
+  
+    try{
+      
+      const product = await request.json();
+  
+      //add new product
+      const add_product = {
+        id: products.length + 1,
+        title: product.title,
+        price: product.price,
+        quantity: product.quantity
+      }
+  
+      //add product to the list
+      products.push(add_product);
   
       return new Response(
-        JSON.stringify({ message: 'Item added to cart successfully', item: body }),
+        JSON.stringify( { message: 'Item added to cart successfully', item: body }),
         {
           status: 200,
           headers: { 'Content-Type': 'application/json' },
         }
       );
-    } catch (error) {
+  
+    }
+    catch(error){
+  
       return new Response(
         JSON.stringify({ error: 'Oh!! Invalid request' }),
         {
@@ -23,6 +36,6 @@ export async function POST(request) {
           headers: { 'Content-Type': 'application/json' },
         }
       );
+  
     }
   }
-  

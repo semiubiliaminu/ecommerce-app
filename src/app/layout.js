@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
               <a href="/" className="hover:underline">Home</a>
               <a href="/cart" className="hover:underline">Cart</a>
             </nav>
+            
           </div>
         </header>
 
