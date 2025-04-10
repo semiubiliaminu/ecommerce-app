@@ -2,14 +2,10 @@
 
 export async function POST(request) {
 
-    //log the raw request sent
-    const text = await request.text();
-    console.log("Raw data : ",  text);
-
     try {
       const body = await request.json();
   
-      // Log the posted cart item
+      //log the raw request sent
       console.log('Cart item received:', body);
   
       return new Response(

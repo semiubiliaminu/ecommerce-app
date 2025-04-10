@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { useCartStore } from './store/cart'
+import ProductCard from '../components/ProductCard'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -12,13 +13,17 @@ export default function Home() {
     fetch('api/products') 
       .then(res => res.json())
       .then(setProducts)
+      return;
   }, [])
+
+  
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0)
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Product List</h1>
+      
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {products.map(product => (
           <div key={product.id} className="border p-4 rounded shadow">
@@ -27,13 +32,15 @@ export default function Home() {
             <p className="mb-2">${product.price}</p>
             <button
               onClick={() => addToCart(product)}
-              className="bg-blue-500 text-white px-4 py-1 rounded"
+              className="bg-blue-600 text-white px-4 py-1 rounded"
             >
               Add to Cart
             </button>
           </div>
         ))}
       </div>
+
+    
 
       <div className="mt-10 border-t pt-6">
         <h2 className="text-2xl font-semibold mb-4">Cart</h2>
