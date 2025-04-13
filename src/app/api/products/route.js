@@ -1,10 +1,22 @@
 
-export const products = [
-      { id: 1, title: 'HD Camera', price: 1200, image: 'images/camera.jpeg' },
-      { id: 2, title: 'Headphones', price: 150, image: 'images/headphone.jpeg' },
-      { id: 3, title: 'HD Camera', price: 80, image: 'images/camera.jpeg' }
-];
+import { promises as fs } from 'fs';
+import path from 'path';
 
-export async function GET(){
-  return Response.json(products);
+const dataFilePath = path.join(process.cwd(), 'src', 'data', 'products.json');
+
+export async function GET() {
+  try {
+    const data = await fs.readFile(dataFilePath, 'utf-8');
+    const products = JSON.parse(data);
+
+    return new Response(JSON.stringify(products), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Failed to read product file:', error);
+    return new Response(JSON.stringify({ error: 'Failed to load products' }), {
+      status: 500,
+    });
+  }
 }

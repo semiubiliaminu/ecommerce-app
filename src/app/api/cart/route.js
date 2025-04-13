@@ -1,42 +1,33 @@
-  import { products } from "../products/route";
-  
+import { promises as fs } from 'fs';
+import { headers } from 'next/headers';
+import path from 'path';
 
-  export async function POST(request){
-  
-    try{
+const dataFilePath = path.join(process.cwd(), 'src', 'data', 'products.json');
 
-      const product = await request.json();
-  
-      console.log("Products... ",product)
-      //add new product
-      const add_product = {
-        id: products.length + 1,
-        title: product.title,
-        price: product.price,
-        quantity: product.quantity
-      }
-  
-      //add product to the list
-      products.push(add_product);
-  
-      return new Response(
-        JSON.stringify( { message: 'Item added to cart successfully', item: body }),
-        {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-  
-    }
-    catch(error){
-  
-      return new Response(
-        JSON.stringify({ error: 'Oh!! Invalid request' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-  
-    }
+export async function POST(request) {
+  try {
+    const body = await request.json();
+
+    const data = await fs.readFile(dataFilePath, 'utf-8');
+    const products = JSON.parse(data);
+
+    const newProduct = {
+      id: products.length + 1,
+      ...body,
+    };
+
+    products.push(newProduct);
+
+    await fs.writeFile(dataFilePath, JSON.stringify(products, null, 2));
+
+    return new Response(JSON.stringify({ message: 'Added successfully', item: newProduct }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('POST error:', error);
+    return new Response(JSON.stringify({ error: 'Could not save product' }), {
+      status: 500,
+    });
   }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "image": "images/camera.jpeg",
+    "title": "HD Camera",
+    "price": 1200
+  },
+  {
+    "id": 2,
+    "title": "Headphone",
+    "price": 150,
+    "image": "images/headphone.jpeg"
+  },
+  {
+    "id": 3,
+    "title": "Wrist Watch",
+    "price": 80,
+    "image": "images/wrist-watch.jpeg"
+  },
+  {
+    "id": 4,
+    "title": "Bicycle",
+    "price": 200,
+    "image": "images/bicycle.jpeg"
+  },
+  {
+    "id": 5,
+    "title": "Men Leather Belt",
+    "price": 10,
+    "image": "images/belt.jpeg"
+  },
+  {
+    "id": 6,
+    "title": "Men Shirt",
+    "price": 200,
+    "image": "images/men-shirt.jpeg"
+  },
+  {
+    "id": 7,
+    "title": "Women Shirt",
+    "price": 200,
+    "image": "women-shirt"
+  }
+]
